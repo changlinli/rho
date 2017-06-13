@@ -646,6 +646,7 @@ object models {
     def title: Option[String]
     def description: Option[String]
     def format: Option[String]
+    def example: Option[String]
 
     def withRequired(required: Boolean): Property
     def toJModel: jm.properties.Property
@@ -659,6 +660,7 @@ object models {
     , title       : Option[String] = None
     , description : Option[String] = None
     , format      : Option[String] = None
+    , example     : Option[String] = None
     ) extends Property {
 
     class RefProperty extends jm.properties.AbstractProperty {
@@ -684,6 +686,7 @@ object models {
       ap.setTitle(fromOption(title))
       ap.setDescription(fromOption(description))
       ap.setFormat(fromOption(format))
+      ap.setExample(fromOption[Any](example))
       ap
     }
   }
@@ -694,6 +697,7 @@ object models {
     , title       : Option[String] = None
     , description : Option[String] = None
     , format      : Option[String] = None
+    , example     : Option[String] = None
     , properties  : Map[String, Property] = Map.empty
   ) extends Property {
 
@@ -709,6 +713,7 @@ object models {
       ap.setTitle(fromOption(title))
       ap.setDescription(fromOption(description))
       ap.setFormat(fromOption(format))
+      ap.setExample(fromOption[Any](example))
       ap.setProperties(fromMap(properties.mapValues(_.toJModel)))
       ap
     }
@@ -721,6 +726,7 @@ object models {
     , title                 : Option[String] = None
     , description           : Option[String] = None
     , format                : Option[String] = None
+    , example               : Option[String] = None
   ) extends Property {
 
     override val `type` = "object"
@@ -735,6 +741,7 @@ object models {
       ap.setTitle(fromOption(title))
       ap.setDescription(fromOption(description))
       ap.setFormat(fromOption(format))
+      ap.setExample(fromOption[Any](example))
       ap.setAdditionalProperties(additionalProperties.toJModel)
       ap
     }
@@ -748,6 +755,7 @@ object models {
     , title       : Option[String] = None
     , description : Option[String] = None
     , format      : Option[String] = None
+    , example     : Option[String] = None
     ) extends Property {
 
     override val `type` = "array"
@@ -763,6 +771,7 @@ object models {
       ap.setTitle(fromOption(title))
       ap.setDescription(fromOption(description))
       ap.setFormat(fromOption(format))
+      ap.setExample(fromOption[Any](example))
       ap
     }
   }
@@ -774,6 +783,7 @@ object models {
     , title       : Option[String] = None
     , description : Option[String] = None
     , format      : Option[String] = None
+    , example     : Option[String] = None
     ) extends Property {
 
     override val `type` = "ref"
@@ -787,6 +797,7 @@ object models {
       rp.setTitle(fromOption(title))
       rp.setDescription(fromOption(description))
       rp.setFormat(fromOption(format))
+      rp.setExample(fromOption[Any](example))
       rp
     }
   }
@@ -796,6 +807,7 @@ object models {
       title       : Option[String] = None
     , description : Option[String] = None
     , format      : Option[String] = None
+    , example     : Option[String] = None
     , required: Boolean = false
     , enums: Set[String]
     , minLength: Option[Int] = None
@@ -814,6 +826,7 @@ object models {
       sp.setTitle(fromOption(title))
       sp.setDescription(fromOption(description))
       sp.setFormat(fromOption(format))
+      sp.setExample(fromOption[Any](example))
       sp.setEnum(fromList(enums.toList))
       minLength.foreach(l => sp.setMinLength(new Integer(l)))
       maxLength.foreach(l => sp.setMaxLength(new Integer(l)))
